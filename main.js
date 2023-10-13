@@ -19,7 +19,6 @@
         zoomContainer.style.position = "absolute";
         zoomContainer.style.top = `${imageBox.top + window.pageYOffset}px`;
         zoomContainer.style.left = `${imageBox.left + window.pageXOffset}px`;
-
         zoomLens = document.createElement("div");
         zoomLens.classList.add("img-zoom-lens");
         zoomResult = document.createElement("div");
@@ -27,20 +26,17 @@
         zoomResult.style.position = "absolute";
         zoomResult.style.top = "500px";
         zoomResult.style.top = `${imageBox.bottom + window.pageYOffset}px`;
-
         zoomContainer.insertAdjacentElement("afterbegin", zoomLens);
         zoomContainer.insertAdjacentElement("afterbegin", zoomResult);
-
-        document
-          .querySelector("body")
-          .insertAdjacentElement("beforeend", zoomContainer);
+        document.querySelector("body").insertAdjacentElement("beforeend", zoomContainer);
         let cx = zoomResult.offsetWidth / zoomLens.offsetWidth;
         let cy = zoomResult.offsetHeight / zoomLens.offsetHeight;
-
         zoomResult.style.backgroundImage = `url('${image.src}')`;
+
         zoomResult.style.backgroundSize = `${image.width * cx}px ${
           image.height * cy
         }`;
+
         zoomContainer.addEventListener("mousemove", function (e) {
           let x = e.clientX - imageBox.left;
           let y = e.clientY + window.pageYOffset - imageBox.top;
@@ -51,19 +47,21 @@
           if (x > image.width - zoomLens.offsetWidth) {
             x = image.width - zoomLens.offsetWidth;
           }
+
           if (x < 0) {
             x = 0;
           }
+
           if (y > image.height - zoomLens.offsetWidth) {
             y = image.height - zoomLens.offsetWidth;
           }
+
           if (y < 0) {
             y = 0;
           }
 
           zoomLens.style.top = `${y}px`;
           zoomLens.style.left = `${x}px`;
-
           zoomResult.style.backgroundPosition = `-${x * cx}px -${y * cy}px`;
         });
       });
@@ -72,7 +70,6 @@
 
   if (typeof vanillaZoom == "undefined") {
     window.vanillaZoom = defineLibrary();
-  } else {
-    console.log("library already defined.");
-  }
+  } 
+  
 })(window);
